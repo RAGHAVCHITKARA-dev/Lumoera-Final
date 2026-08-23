@@ -12,6 +12,7 @@ function About() {
   return (
     <div className="page">
       <Decor />
+
       <section className="section container" style={{ paddingTop: 60 }}>
         <h2 className="section-title">About Lumeora</h2>
         <p className="section-sub">a little light, always within reach</p>
@@ -39,9 +40,12 @@ function About() {
         <div className="about-card">
           <h3>Coming soon 🌱</h3>
           <p>These features are being designed for a future version of Lumeora:</p>
+
           <div>
             {upcoming.map((item) => (
-              <span key={item} className="future-tag">{item}</span>
+              <span key={item} className="future-tag">
+                {item}
+              </span>
             ))}
           </div>
         </div>
