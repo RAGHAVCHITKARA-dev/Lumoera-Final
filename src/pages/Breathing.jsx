@@ -11,7 +11,6 @@ function Breathing() {
   const [active, setActive] = useState(false)
   const [phaseIndex, setPhaseIndex] = useState(0)
 
-  // Advances the breathing phase every 4 seconds, only while active
   useEffect(() => {
     if (!active) return
 
@@ -23,8 +22,11 @@ function Breathing() {
   }, [active])
 
   function toggleStart() {
-    if (!active) setPhaseIndex(0)
     setActive(!active)
+
+    if (!active) {
+      setPhaseIndex(0)
+    }
   }
 
   const phase = phases[phaseIndex]
@@ -32,15 +34,23 @@ function Breathing() {
   return (
     <div className="page">
       <Decor />
+
       <section className="breathing-wrap container">
         <h2 className="section-title">Let’s breathe together</h2>
-        <p className="section-sub">Follow the circle. In for 4, hold for 4, out for 4.</p>
+
+        <p className="section-sub">
+          Follow the circle. In for 4, hold for 4, out for 4.
+        </p>
 
         <div className={`breath-circle ${active ? phase.cls : ''}`}>
           {active ? phase.label : 'Ready?'}
         </div>
 
-        <button className="btn btn-primary" style={{ marginTop: 40 }} onClick={toggleStart}>
+        <button
+          className="btn btn-primary"
+          style={{ marginTop: 40 }}
+          onClick={toggleStart}
+        >
           {active ? '⏸ Stop' : '🌬 Start Breathing'}
         </button>
       </section>
