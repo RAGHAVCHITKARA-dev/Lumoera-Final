@@ -6,25 +6,32 @@ function Navbar() {
     { path: '/about', label: 'About' },
     { path: '/mood', label: 'Mood' },
     { path: '/breathing', label: 'Breathing' },
-    { path: '/journal', label: 'Journal' },
   ]
 
   return (
     <nav className="navbar">
-      <Link to="/" className="logo">✿ Lumeora</Link>
+      <Link to="/" className="logo">
+        ✿ Lumeora
+      </Link>
+
       <ul className="nav-links">
         {links.map((link) => (
           <li key={link.path}>
             <NavLink
               to={link.path}
-              className={({ isActive }) => (isActive ? 'active' : '')}
+              className={({ isActive }) =>
+                isActive ? 'active' : ''
+              }
             >
               {link.label}
             </NavLink>
           </li>
         ))}
+
         <li>
-          <Link to="/" className="nav-cta">Start Your Journey</Link>
+          <Link to="/" className="nav-cta">
+            Start Your Journey
+          </Link>
         </li>
       </ul>
     </nav>
