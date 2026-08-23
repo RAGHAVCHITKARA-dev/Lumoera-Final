@@ -47,6 +47,34 @@ const meditationLink =
 const yogaLink =
   'https://www.youtube.com/results?search_query=beginner+calming+yoga+for+anxiety'
 
+function ResponseCard({ emoji, title, link, external = false }) {
+  const content = (
+    <>
+      <div className="emoji">{emoji}</div>
+      <p>{title}</p>
+    </>
+  )
+
+  if (external) {
+    return (
+      <a
+        href={link}
+        target="_blank"
+        rel="noreferrer"
+        className="response-card"
+      >
+        {content}
+      </a>
+    )
+  }
+
+  return (
+    <Link to={link} className="response-card">
+      {content}
+    </Link>
+  )
+}
+
 function Home() {
   const [journeyStarted, setJourneyStarted] = useState(false)
   const [mood, setMood] = useState('')
@@ -55,6 +83,11 @@ function Home() {
   useEffect(() => {
     setQuoteIndex(Math.floor(Math.random() * quotes.length))
   }, [])
+
+  function startJourney() {
+    setJourneyStarted(true)
+    setMood('')
+  }
 
   function newQuote() {
     let next = Math.floor(Math.random() * quotes.length)
@@ -66,24 +99,10 @@ function Home() {
     setQuoteIndex(next)
   }
 
-  function startJourney() {
-    setJourneyStarted(true)
-    setMood('')
-  }
-
-  const isPositive =
-    mood === 'happy' || mood === 'calm'
-
-  const isOkay = mood === 'okay'
-
-  const isLow =
-    mood === 'low' || mood === 'anxious'
-
   return (
     <div className="page">
       <Decor />
 
-     
       <section className="hero">
         <span className="hero-eyebrow">
           welcome to your soft place ✿
@@ -107,41 +126,30 @@ function Home() {
             🌙 Start Your Journey
           </button>
 
-          <Link
-            to="/about"
-            className="btn btn-outline"
-          >
+          <Link to="/about" className="btn btn-outline">
             Learn about Lumeora
           </Link>
         </div>
 
-       
         {journeyStarted && (
           <div className="journey-box">
-
             {!mood && (
               <>
-                <h3>
-                  How are you feeling right now?
-                </h3>
+                <h3>How are you feeling right now?</h3>
 
                 <div className="mood-row">
-                  {moods.map((m) => (
+                  {moods.map((item) => (
                     <button
-                      key={m.value}
+                      key={item.value}
                       className={`mood-btn ${
-                        mood === m.value
-                          ? 'selected'
-                          : ''
+                        mood === item.value ? 'selected' : ''
                       }`}
-                      onClick={() =>
-                        setMood(m.value)
-                      }
+                      onClick={() => setMood(item.value)}
                     >
-                      {m.emoji}
+                      {item.emoji}
 
                       <span className="mood-label">
-                        {m.label}
+                        {item.label}
                       </span>
                     </button>
                   ))}
@@ -149,16 +157,12 @@ function Home() {
               </>
             )}
 
-            
-            {isPositive && (
+            {(mood === 'happy' || mood === 'calm') && (
               <div>
-                <h3>
-                  That’s lovely to hear 🌷
-                </h3>
+                <h3>That’s lovely to hear 🌷</h3>
 
                 <p>
-                  Hold onto this feeling — you deserve
-                  every bit of it.
+                  Hold onto this feeling — you deserve every bit of it.
                 </p>
 
                 <p
@@ -183,132 +187,91 @@ function Home() {
               </div>
             )}
 
-            {/* OKAY */}
-            {isOkay && (
+            {mood === 'okay' && (
               <div>
-                <h3>
-                  An “okay” day is still a good day 🌾
-                </h3>
+                <h3>An “okay” day is still a good day 🌾</h3>
 
                 <p>
                   Here’s something gentle to steady you.
                 </p>
 
                 <div className="response-cards">
+                  <ResponseCard
+                    emoji="🌬"
+                    title="Breathing"
+                    link="/breathing"
+                  />
 
-                  <Link
-                    to="/breathing"
-                    className="response-card"
-                  >
-                    <div className="emoji">
-                      🌬
-                    </div>
-
-                    <p>Breathing</p>
-                  </Link>
-
-                  <a
-                    href={meditationLink}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="response-card"
-                  >
-                    <div className="emoji">
-                      🧘
-                    </div>
-
-                    <p>Meditation</p>
-                  </a>
-
+                  <ResponseCard
+                    emoji="🧘"
+                    title="Meditation"
+                    link={meditationLink}
+                    external
+                  />
                 </div>
               </div>
             )}
 
-           
-            {isLow && (
+            {(mood === 'low' || mood === 'anxious') && (
               <div>
                 <h3>
-                  Thank you for being honest with
-                  yourself 🤍
+                  Thank you for being honest with yourself 🤍
                 </h3>
 
                 <p>
-                  Whatever you’re feeling is valid —
-                  let’s take this slowly, together.
+                  Whatever you’re feeling is valid — let’s take
+                  this slowly, together.
                 </p>
 
                 <div className="response-cards">
+                  <ResponseCard
+                    emoji="🌬"
+                    title="Breathing"
+                    link="/breathing"
+                  />
 
-                  <Link
-                    to="/breathing"
-                    className="response-card"
-                  >
-                    <div className="emoji">
-                      🌬
-                    </div>
+                  <ResponseCard
+                    emoji="🧘"
+                    title="Meditation"
+                    link={meditationLink}
+                    external
+                  />
 
-                    <p>Breathing</p>
-                  </Link>
-
-                  <a
-                    href={meditationLink}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="response-card"
-                  >
-                    <div className="emoji">
-                      🧘
-                    </div>
-
-                    <p>Meditation</p>
-                  </a>
-
-                  <a
-                    href={yogaLink}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="response-card"
-                  >
-                    <div className="emoji">
-                      🌸
-                    </div>
-
-                    <p>Yoga</p>
-                  </a>
-
+                  <ResponseCard
+                    emoji="🌸"
+                    title="Yoga"
+                    link={yogaLink}
+                    external
+                  />
                 </div>
               </div>
             )}
-
           </div>
         )}
       </section>
 
-      {/* FEATURE CARDS */}
       <section className="section container">
         <h2 className="section-title">
           Everything you need, softly
         </h2>
 
         <p className="section-sub">
-          Three little corners of calm, always here
-          for you.
+          Three little corners of calm, always here for you.
         </p>
 
         <div className="grid">
-          {features.map((f) => (
+          {features.map((feature) => (
             <FeatureCard
-              key={f.title}
-              emoji={f.emoji}
-              title={f.title}
-              desc={f.desc}
-              link={f.link}
+              key={feature.title}
+              emoji={feature.emoji}
+              title={feature.title}
+              desc={feature.desc}
+              link={feature.link}
             />
           ))}
         </div>
       </section>
 
-      
       <section className="section container">
         <h2 className="section-title">
           Thought for today
@@ -327,7 +290,6 @@ function Home() {
           </button>
         </div>
       </section>
-
     </div>
   )
 }
