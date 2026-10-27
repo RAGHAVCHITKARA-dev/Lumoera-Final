@@ -672,3 +672,108 @@ a {
 
   margin: 6px 8px 0 0;
 }
+
+/* Evaluation 2: Journal form and entry layout */
+.journal-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.journal-form {
+  margin-top: 0;
+}
+
+.journal-hint,
+.journal-empty {
+  color: var(--brown);
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 18px 0;
+  text-align: left;
+}
+
+.form-field label {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  border: 1px solid var(--blush-deep);
+  border-radius: 14px;
+  padding: 13px 14px;
+  background: #fffdfa;
+  color: var(--brown-deep);
+  font: inherit;
+}
+
+.form-field textarea {
+  resize: vertical;
+}
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+  outline: 2px solid var(--lavender-deep);
+  border-color: var(--rose-deep);
+}
+
+.form-error {
+  color: #a52f4b;
+  font-size: 13px;
+  margin: 4px 0 12px;
+}
+
+.form-success {
+  color: #32734b;
+  font-size: 14px;
+}
+
+.journal-entry {
+  margin-top: 16px;
+  padding: 24px;
+  overflow-wrap: anywhere;
+}
+
+.journal-entry-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.journal-entry h3 {
+  margin-top: 12px;
+}
+
+.journal-entry small {
+  color: var(--brown);
+  opacity: 0.75;
+}
+
+.delete-entry {
+  background: transparent;
+  color: var(--rose-deep);
+  border: 1px solid var(--blush-deep);
+  border-radius: 999px;
+  padding: 7px 12px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+}
+
+@media (max-width: 760px) {
+  .journal-layout {
+    grid-template-columns: 1fr;
+  }
+}
