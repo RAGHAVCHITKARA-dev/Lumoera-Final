@@ -45,10 +45,17 @@ function Navbar() {
         {currentUser ? (
           <>
             <li>
+              <NavLink to="/journal" className={({ isActive }) => isActive ? 'active' : ''}>
+                Journal
+              </NavLink>
+            </li>
+
+            <li>
               <NavLink to="/profile" className={({ isActive }) => isActive ? 'active' : ''}>
                 Profile
               </NavLink>
             </li>
+
             <li>
               <button type="button" className="nav-cta" onClick={handleLogout}>
                 Log out
@@ -62,6 +69,7 @@ function Navbar() {
                 Log in
               </NavLink>
             </li>
+
             <li>
               <Link to="/signup" className="nav-cta">
                 Sign up
